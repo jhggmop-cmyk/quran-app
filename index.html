@@ -127,7 +127,7 @@
         }
 
         .surah-list {
-            max-height: 300px;
+            max-height: 280px;
             overflow-y: auto;
             padding: 0;
         }
@@ -145,25 +145,27 @@
             background-color: var(--hover-bg);
         }
 
-        /* منطقة قراءة الآيات */
+        /* منطقة قراءة الآيات الكاملة */
         .ayahs-container {
             font-family: 'Amiri', serif;
             font-size: 24px;
-            line-height: 2.3;
+            line-height: 2.5;
             text-align: justify;
-            padding: 15px;
+            padding: 20px;
             background: var(--bg-color);
-            border-radius: 10px;
+            border-radius: 12px;
             margin-top: 15px;
-            max-height: 450px;
+            max-height: 500px;
             overflow-y: auto;
+            border: 1px solid var(--border-color);
         }
 
         .ayah-number {
             display: inline-block;
             color: var(--gold-color);
             font-weight: bold;
-            margin: 0 5px;
+            margin: 0 6px;
+            font-size: 20px;
         }
 
         .bismillah {
@@ -218,12 +220,12 @@
 <body>
 
 <div class="container">
-    <!-- بانر الصورة الخضراء والذهبية -->
+    <!-- البنر (صورة المصحف الخضراء والذهبية) -->
     <div class="site-banner">
         <img src="banner.jpg" alt="القرآن الكريم">
     </div>
 
-    <!-- أزرار التحكم بالمظهر والخط -->
+    <!-- أدوات التحكم بالمظهر والخط -->
     <div class="controls">
         <button onclick="toggleDarkMode()">🌙 الوضع الليلي</button>
         <button onclick="changeFontSize(2)">A+ تكبير الخط</button>
@@ -237,7 +239,7 @@
         <button class="tab-btn" onclick="switchTab('tasbeehTab', this)">📿 المسبحة والاستغفار</button>
     </div>
 
-    <!-- 1. قسم القرآن الكريم -->
+    <!-- 1. قسم القرآن الكريم وقراءة الآيات -->
     <div id="quranTab">
         <input type="text" id="searchInput" class="search-box" placeholder="🔍 ابحث باسم السورة أو رقمها..." onkeyup="filterSurahs()">
 
@@ -245,7 +247,7 @@
             <div style="text-align:center; padding: 20px;">جاري تحميل سور القرآن الكريم...</div>
         </div>
 
-        <!-- مشغل الصوت وعرض الآيات -->
+        <!-- مشغل الصوت وقراءة الآيات -->
         <div class="card">
             <h2 id="activeTitle" style="text-align:center; color:var(--primary-color); font-family:'Amiri', serif; margin:0;">سُورَةُ أَلْفَاتِحَةِ</h2>
             <p id="activeMeta" style="text-align:center; opacity:0.8; margin:5px 0 15px 0;">مكية • 7 آيات</p>
@@ -262,6 +264,8 @@
             </audio>
 
             <div class="bismillah" id="bismillahText">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            
+            <!-- هنا يتم عرض جميع آيات السورة المختارة بالكامل -->
             <div class="ayahs-container" id="ayahsContainer">
                 جاري تحميل آيات السورة...
             </div>
@@ -271,16 +275,16 @@
     <!-- 2. قسم الأذكار والأدعية -->
     <div id="adhkarTab" class="card hidden">
         <h3 style="color:var(--primary-color); text-align:center;">أذكار وأدعية مختارة</h3>
-        <div class="dhikr-item"><strong>أذكار الصباح والمساء:</strong> أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ، وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.</div>
+        <div class="dhikr-item"><strong>أذكار الصباح:</strong> أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ، وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.</div>
+        <div class="dhikr-item"><strong>أذكار المساء:</strong> أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ، وَحْدَهُ لَا شَرِيكَ لَهُ.</div>
         <div class="dhikr-item"><strong>سيد الاستغفار:</strong> اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.</div>
-        <div class="dhikr-item"><strong>دعاء الكرب والهم:</strong> لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ السَّمَاوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ.</div>
-        <div class="dhikr-item"><strong>دعاء جامع:</strong> رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ.</div>
+        <div class="dhikr-item"><strong>دعاء الكرب:</strong> لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ.</div>
     </div>
 
     <!-- 3. قسم المسبحة والاستغفار -->
     <div id="tasbeehTab" class="card hidden tasbeeh-counter">
         <h3 style="color:var(--primary-color);">المسبحة الإلكترونية</h3>
-        <select id="dhikrSelect" onchange="resetCounter()" style="margin-bottom: 15px; font-size: 16px;">
+        <select id="dhikrSelect" onchange="resetCounter()" style="margin-bottom: 15px; font-size: 16px; width:100%;">
             <option value="أستغفر الله العظيم وأتوب إليه">أستغفر الله العظيم وأتوب إليه</option>
             <option value="سبحان الله وبحمده، سبحان الله العظيم">سبحان الله وبحمده، سبحان الله العظيم</option>
             <option value="الحمد لله رب العالمين">الحمد لله رب العالمين</option>
@@ -290,7 +294,7 @@
         <div class="count-display" id="counterDisplay">0</div>
         <button class="tasbeeh-btn" onclick="incrementCounter()">سبّح / استغفر</button>
         <br><br>
-        <button onclick="resetCounter()" style="background:#ef4444; color:white; border:none;">تصفير العداد</button>
+        <button onclick="resetCounter()" style="background:#ef4444; color:white; border:none; padding:8px 16px; border-radius:8px;">تصفير العداد</button>
     </div>
 </div>
 
@@ -300,7 +304,7 @@
     let ayahFontSize = 24;
     let tasbeehCount = 0;
 
-    // جلب قائمة الـ 114 سورة
+    // جلب قائمة السور الـ 114
     async function initQuran() {
         try {
             const res = await fetch('https://api.alquran.cloud/v1/surah');
@@ -308,7 +312,7 @@
             if (data.code === 200) {
                 allSurahs = data.data;
                 renderSurahList(allSurahs);
-                loadSurah(1);
+                loadSurah(1); // تحميل سورة الفاتحة افتراضياً
             }
         } catch (err) {
             document.getElementById('surahList').innerHTML = '<div style="padding:20px; text-align:center; color:red;">تعذر الاتصال بالخادم، تأكد من الإنترنت.</div>';
@@ -336,7 +340,7 @@
         renderSurahList(filtered);
     }
 
-    // فتح السورة وتحميل آياتها الكاملة وصوتها
+    // جلب وعرض آيات السورة بالكامل مع الصوت
     async function loadSurah(number) {
         currentSurah = number;
         const surahInfo = allSurahs.find(s => s.number === number);
@@ -346,13 +350,13 @@
             document.getElementById('activeMeta').innerText = `${type} • عدد الآيات: ${surahInfo.numberOfAyahs}`;
         }
 
-        // إظهار أو إخفاء البسملة (تُخفى في سورة التوبة رقم 9)
+        // إخفاء البسملة في سورة التوبة (9) والفاتحة (1)
         document.getElementById('bismillahText').style.display = (number === 9 || number === 1) ? 'none' : 'block';
 
         updateAudio();
 
         const ayahsBox = document.getElementById('ayahsContainer');
-        ayahsBox.innerHTML = '<div style="text-align:center;">جاري تحميل آيات السورة...</div>';
+        ayahsBox.innerHTML = '<div style="text-align:center; padding:20px;">جاري تحميل الآيات...</div>';
 
         try {
             const res = await fetch(`https://api.alquran.cloud/v1/surah/${number}`);
@@ -369,7 +373,7 @@
         }
     }
 
-    // تحديث رابط الصوت حسب القارئ
+    // تحديث رابط الصوت حسب القارئ والسورة
     function updateAudio() {
         const reciter = document.getElementById('reciterSelect').value;
         const padded = String(currentSurah).padStart(3, '0');
@@ -384,7 +388,7 @@
         player.src = servers[reciter];
     }
 
-    // التنقل بين التبويبات
+    // التنقل بين الأقسام
     function switchTab(tabId, btn) {
         ['quranTab', 'adhkarTab', 'tasbeehTab'].forEach(id => {
             document.getElementById(id).classList.add('hidden');
@@ -404,7 +408,7 @@
     function changeFontSize(delta) {
         ayahFontSize += delta;
         if (ayahFontSize < 18) ayahFontSize = 18;
-        if (ayahFontSize > 38) ayahFontSize = 38;
+        if (ayahFontSize > 36) ayahFontSize = 36;
         document.getElementById('ayahsContainer').style.fontSize = ayahFontSize + 'px';
     }
 
@@ -423,5 +427,5 @@
 </script>
 
 </body>
-    </html>
-            
+            </html>
+        
