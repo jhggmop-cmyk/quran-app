@@ -7,10 +7,11 @@
     <style>
         :root {
             --bg-color: #f8f9fa;
-            --text-color: #333;
-            --card-bg: #fff;
+            --text-color: #333333;
+            --card-bg: #ffffff;
             --primary-color: #00897b;
             --border-color: #e0e0e0;
+            --hover-color: rgba(0, 137, 123, 0.1);
         }
 
         body.dark-mode {
@@ -18,7 +19,8 @@
             --text-color: #e0e0e0;
             --card-bg: #1e1e1e;
             --primary-color: #26a69a;
-            --border-color: #333;
+            --border-color: #333333;
+            --hover-color: rgba(38, 166, 154, 0.15);
         }
 
         body {
@@ -35,19 +37,19 @@
             margin: 0 auto;
         }
 
-        /* تنسيق بانر الصورة الفخمة */
+        /* تنسيق البنر الملكي الجديد */
         .site-banner {
             text-align: center;
-            margin: 15px 0 20px 0;
+            margin: 10px 0 20px 0;
         }
 
         .site-banner img {
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             height: auto;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border: 2px solid #d4af37; /* إطار ذهبي أنيق متناسق مع الصورة */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            border: 2px solid #d4af37;
         }
 
         .header-controls {
@@ -66,11 +68,12 @@
             cursor: pointer;
             font-family: inherit;
             font-size: 14px;
+            transition: 0.2s;
         }
 
         button:hover {
             background-color: var(--primary-color);
-            color: #fff;
+            color: #ffffff;
         }
 
         .search-box {
@@ -83,6 +86,7 @@
             margin-bottom: 15px;
             font-size: 16px;
             box-sizing: border-box;
+            outline: none;
         }
 
         .surah-list {
@@ -100,6 +104,7 @@
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
+            transition: background 0.2s;
         }
 
         .surah-item:last-child {
@@ -107,15 +112,53 @@
         }
 
         .surah-item:hover {
-            background-color: rgba(0, 137, 123, 0.1);
+            background-color: var(--hover-color);
             border-radius: 8px;
+        }
+
+        .active-surah-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .surah-title-active {
+            font-size: 26px;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .surah-info {
+            font-size: 14px;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-family: inherit;
+            margin-bottom: 15px;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- بانر المصحف الإلكتروني -->
+        <!-- بانر الصورة الفخمة -->
         <div class="site-banner">
             <img src="banner.jpg" alt="القرآن الكريم">
         </div>
@@ -128,22 +171,37 @@
         </div>
 
         <!-- شريط البحث -->
-        <input type="text" class="search-box" placeholder="ابحث عن سورة...">
+        <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن سورة..." onkeyup="searchSurah()">
 
         <!-- قائمة السور -->
-        <div class="surah-list">
-            <div class="surah-item">
+        <div class="surah-list" id="surahList">
+            <div class="surah-item" onclick="selectSurah('الفاتحة', 'مكية (7)')">
                 <span>1. سُورَةُ أَلْفَاتِحَةِ</span>
                 <span>مكية (7)</span>
             </div>
-            <div class="surah-item">
+            <div class="surah-item" onclick="selectSurah('البقرة', 'مدنية (286)')">
                 <span>2. سُورَةُ البَقَرَةِ</span>
                 <span>مدنية (286)</span>
             </div>
-            <div class="surah-item">
+            <div class="surah-item" onclick="selectSurah('آل عمران', 'مدنية (200)')">
                 <span>3. سُورَةُ آلِ عِمْرَانَ</span>
                 <span>مدنية (200)</span>
             </div>
+        </div>
+
+        <!-- مشغل الصوت وعرض السورة النشطة -->
+        <div class="active-surah-card">
+            <div class="surah-title-active" id="activeTitle">سُورَةُ أَلْفَاتِحَةِ</div>
+            <div class="surah-info" id="activeInfo">مكية - عدد آياتها 7</div>
+            
+            <select>
+                <option>مشاري راشد العفاسي</option>
+            </select>
+
+            <audio controls>
+                <source src="" type="audio/mpeg">
+                متصفحك لا يدعم مشغل الصوت
+            </audio>
         </div>
     </div>
 
@@ -153,8 +211,27 @@
         }
 
         function changeFontSize(direction) {
-            // كود تغيير حجم الخط حسب رغبتك
+            // دالة التحكم بحجم الخط
+        }
+
+        function selectSurah(name, info) {
+            document.getElementById('activeTitle').innerText = 'سُورَةُ ' + name;
+            document.getElementById('activeInfo').innerText = info;
+        }
+
+        function searchSurah() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let items = document.getElementsByClassName('surah-item');
+            for (let i = 0; i < items.length; i++) {
+                let text = items[i].innerText;
+                if (text.toLowerCase().includes(input)) {
+                    items[i].style.display = "";
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
         }
     </script>
 </body>
-</html>
+                </html>
+                
