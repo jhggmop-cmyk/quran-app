@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سينما بلس | عالم الأفلام</title>
+    <title>سينما ومسلسلات | البث المباشر</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-main: #0b0f19;
             --bg-card: #151c2c;
-            --accent: #e50914;
-            --accent-hover: #b20710;
+            --accent: #10b981;
+            --accent-hover: #059669;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --gold: #f59e0b;
+            --gold: #d4af37;
         }
 
         * {
@@ -43,18 +43,17 @@
         }
 
         .logo {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--accent);
-            letter-spacing: 1px;
         }
 
         .logo span {
-            color: var(--text-main);
+            color: var(--gold);
         }
 
         .search-bar {
-            width: 300px;
+            width: 280px;
             max-width: 50%;
             padding: 10px 16px;
             border-radius: 25px;
@@ -63,324 +62,233 @@
             color: var(--text-main);
             font-family: inherit;
             outline: none;
-            transition: 0.3s;
         }
 
         .search-bar:focus {
             border-color: var(--accent);
         }
 
-        /* الواجهة الرئيسية Hero */
-        .hero {
-            position: relative;
-            height: 420px;
-            background: linear-gradient(to top, var(--bg-main) 10%, rgba(11, 15, 25, 0.4) 100%),
-                        url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
-            display: flex;
-            align-items: flex-end;
-            padding: 40px 5%;
+        /* قسم مشغل الفيديو الرئيسي (يعرض الفيلم/الحلقة كاملة) */
+        .player-section {
+            padding: 30px 5% 10px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
-        .hero-content {
-            max-width: 600px;
+        .video-container {
+            width: 100%;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid #334155;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
 
-        .hero-badge {
-            background: var(--accent);
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 10px;
+        video {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            display: block;
+            background: #000;
         }
 
-        .hero h1 {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 10px;
+        .now-playing-info {
+            padding: 15px 0;
         }
 
-        .hero p {
+        .now-playing-info h2 {
+            font-size: 22px;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .now-playing-info p {
             color: var(--text-muted);
-            font-size: 15px;
-            margin-bottom: 20px;
+            font-size: 14px;
         }
 
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-        }
-
-        /* أزرار التصنيفات */
+        /* التصنيفات */
         .categories {
             display: flex;
             gap: 10px;
-            padding: 25px 5% 10px;
+            padding: 20px 5% 10px;
             overflow-x: auto;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .cat-btn {
             background: var(--bg-card);
             color: var(--text-muted);
             border: 1px solid #1e293b;
-            padding: 8px 20px;
+            padding: 8px 22px;
             border-radius: 20px;
             font-family: inherit;
             font-size: 14px;
             cursor: pointer;
             white-space: nowrap;
+            font-weight: 600;
             transition: 0.2s;
         }
 
         .cat-btn.active, .cat-btn:hover {
             background: var(--accent);
-            color: white;
+            color: #000;
             border-color: var(--accent);
         }
 
-        /* شبكة الأفلام */
-        .movies-grid {
+        /* شبكة عرض الأفلام والمسلسلات والأنمي */
+        .media-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
             padding: 20px 5% 50px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
-        .movie-card {
+        .media-card {
             background: var(--bg-card);
             border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, border-color 0.3s;
             cursor: pointer;
             border: 1px solid #1e293b;
         }
 
-        .movie-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+        .media-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
         }
 
-        .movie-poster {
+        .media-poster {
             width: 100%;
-            height: 300px;
+            height: 260px;
             object-fit: cover;
             display: block;
         }
 
-        .movie-info {
-            padding: 15px;
+        .media-info {
+            padding: 12px;
         }
 
-        .movie-title {
-            font-size: 17px;
+        .media-title {
+            font-size: 15px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .movie-meta {
+        .media-meta {
             display: flex;
             justify-content: space-between;
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
+        }
+
+        .type-badge {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--gold);
         }
 
         .rating {
             color: var(--gold);
             font-weight: 700;
         }
-
-        /* نافذة التفاصيل (Modal) */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 200;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: var(--bg-card);
-            max-width: 650px;
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid #334155;
-            position: relative;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(0,0,0,0.6);
-            color: white;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .video-wrapper {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #000;
-        }
-
-        .video-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .modal-body {
-            padding: 20px;
-        }
-
-        .modal-body h2 {
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
-
-        .modal-body p {
-            color: var(--text-muted);
-            font-size: 15px;
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">CINEMA<span>PLUS</span></div>
-        <input type="text" id="searchInput" class="search-bar" placeholder="ابحث عن فيلم..." onkeyup="filterMovies()">
+        <div class="logo">STREAM<span>VIX</span></div>
+        <input type="text" id="searchInput" class="search-bar" placeholder="ابحث في الأفلام، المسلسلات، والأنمي..." onkeyup="filterMedia()">
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <span class="hero-badge">الأكثر مشاهدة</span>
-            <h1>Interstellar (بين النجوم)</h1>
-            <p>في مستقبل تواجه فيه الأرض أزمة بيئية تهدد بقاء البشرية، ينطلق فريق من رواد الفضاء عبر ثقب دودي للبحث عن كوكب صالح للحياة.</p>
-            <button class="btn-primary" onclick="openMovie(0)">▶ مشاهدة الإعلان والتفاصيل</button>
+    <!-- مشغل الفيديو المباشر -->
+    <section class="player-section">
+        <div class="video-container">
+            <video id="mainVideoPlayer" controls poster="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1000&q=80">
+                <source id="videoSource" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                متصفحك لا يدعم مشغل الفيديو
+            </video>
+        </div>
+        <div class="now-playing-info">
+            <h2 id="currentTitle">اختر عملاً للمشاهدة المباشرة</h2>
+            <p id="currentDesc">اضغط على أي فيلم أو مسلسل أو حلقة أنمي من الأسفل لتبدأ المشاهدة فوراً.</p>
         </div>
     </section>
 
+    <!-- أزرار التصنيفات -->
     <div class="categories">
         <button class="cat-btn active" onclick="filterCategory('الكل', this)">الكل</button>
-        <button class="cat-btn" onclick="filterCategory('خيال علمي', this)">خيال علمي</button>
-        <button class="cat-btn" onclick="filterCategory('أكشن', this)">أكشن</button>
+        <button class="cat-btn" onclick="filterCategory('أفلام', this)">أفلام</button>
+        <button class="cat-btn" onclick="filterCategory('مسلسلات', this)">مسلسلات</button>
         <button class="cat-btn" onclick="filterCategory('أنمي', this)">أنمي</button>
-        <button class="cat-btn" onclick="filterCategory('دراما', this)">دراما</button>
     </div>
 
-    <main class="movies-grid" id="moviesGrid"></main>
-
-    <!-- نافذة عرض الفيلم -->
-    <div class="modal" id="movieModal" onclick="closeModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="close-btn" onclick="closeModal()">✕</button>
-            <div class="video-wrapper">
-                <iframe id="trailerFrame" src="" allowfullscreen></iframe>
-            </div>
-            <div class="modal-body">
-                <h2 id="modalTitle"></h2>
-                <p id="modalDesc"></p>
-            </div>
-        </div>
-    </div>
+    <!-- شبكة المحتوى -->
+    <main class="media-grid" id="mediaGrid"></main>
 
     <script>
-        const movies = [
+        // قائمة الأعمال (يمكنك تعديل روابط الـ video لتضع روابط سيرفراتك أو ملفات MP4 المباشرة)
+        const mediaList = [
             {
-                title: "Interstellar",
-                year: "2014",
-                rating: "8.7",
-                category: "خيال علمي",
-                poster: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=600&q=80",
-                trailer: "https://www.youtube.com/embed/zSWdZVtXT7E",
-                desc: "ملحمة خيال علمي عن السفر عبر الفضاء والزمن لإنقاذ مستقبل البشرية."
-            },
-            {
-                title: "Spirited Away",
-                year: "2001",
-                rating: "8.6",
-                category: "أنمي",
-                poster: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80",
-                trailer: "https://www.youtube.com/embed/ByXuk9QqQkk",
-                desc: "فتاة صغيرة تدخل عالماً سحرياً مليئاً بالأرواح وتبحث عن طريقة لإنقاذ والديها."
-            },
-            {
-                title: "The Dark Knight",
-                year: "2008",
-                rating: "9.0",
-                category: "أكشن",
-                poster: "https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?auto=format&fit=crop&w=600&q=80",
-                trailer: "https://www.youtube.com/embed/EXeTwQWrcwY",
-                desc: "يواجه باتمان التحدي الأكبر له في مدينة جوثام ضد العقل المدبر الفوضوي الجوكر."
-            },
-            {
-                title: "Inception",
-                year: "2010",
-                rating: "8.8",
-                category: "خيال علمي",
-                poster: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
-                trailer: "https://www.youtube.com/embed/YoHD9XEInc0",
-                desc: "لص محترف يسرق الأسرار من خلال التسلل إلى اللاوعي أثناء الحلم يُكلف بمهمة زرع فكرة."
-            },
-            {
-                title: "The Pursuit of Happyness",
-                year: "2006",
-                rating: "8.0",
-                category: "دراما",
-                poster: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80",
-                trailer: "https://www.youtube.com/embed/DMOBlEcRuw8",
-                desc: "قصة كفاح حقيقية ملهمة لأب يكافح الفقر والتشرد لبناء مستقبل كريم لابنه."
-            },
-            {
-                title: "Dune: Part Two",
+                title: "فيلم خيال علمي (تجريبي)",
+                category: "أفلام",
                 year: "2024",
-                rating: "8.5",
-                category: "أكشن",
-                poster: "https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&w=600&q=80",
-                trailer: "https://www.youtube.com/embed/Way9Dexny3w",
-                desc: "يتحد بول أتريديس مع سكان الصحراء في رحلة انتقام واستعادة السيطرة على كوكب أراكيس."
+                rating: "8.8",
+                poster: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=600&q=80",
+                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                desc: "فيلم سينمائي مترجم بجودة عالية يعرض داخل المشغل المباشر."
+            },
+            {
+                title: "مسلسل دراما وتشويق - الحلقة 1",
+                category: "مسلسلات",
+                year: "2023",
+                rating: "9.2",
+                poster: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=600&q=80",
+                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                desc: "الحلقة الأولى من المسلسل الدرامي المثير."
+            },
+            {
+                title: "حلقة أنمي حماسية - حلقة 1",
+                category: "أنمي",
+                year: "2024",
+                rating: "9.5",
+                poster: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80",
+                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+                desc: "الموسم الجديد من الأنمي الأسطوري مترجم للعربية."
+            },
+            {
+                title: "فيلم أكشن ومغامرات",
+                category: "أفلام",
+                year: "2022",
+                rating: "8.1",
+                poster: "https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?auto=format&fit=crop&w=600&q=80",
+                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+                desc: "قصة ملحمية مليئة بالحماس والأكشن."
             }
         ];
 
         let currentCategory = "الكل";
 
-        function renderMovies(list) {
-            const grid = document.getElementById("moviesGrid");
+        function renderMedia(list) {
+            const grid = document.getElementById("mediaGrid");
             grid.innerHTML = "";
-            list.forEach((movie) => {
-                const originalIndex = movies.indexOf(movie);
+            list.forEach((item) => {
+                const originalIndex = mediaList.indexOf(item);
                 grid.innerHTML += `
-                    <div class="movie-card" onclick="openMovie(${originalIndex})">
-                        <img src="${movie.poster}" alt="${movie.title}" class="movie-poster">
-                        <div class="movie-info">
-                            <div class="movie-title">${movie.title}</div>
-                            <div class="movie-meta">
-                                <span>${movie.year} • ${movie.category}</span>
-                                <span class="rating">★ ${movie.rating}</span>
+                    <div class="media-card" onclick="playMedia(${originalIndex})">
+                        <img src="${item.poster}" alt="${item.title}" class="media-poster">
+                        <div class="media-info">
+                            <div class="media-title">${item.title}</div>
+                            <div class="media-meta">
+                                <span><span class="type-badge">${item.category}</span> ${item.year}</span>
+                                <span class="rating">★ ${item.rating}</span>
                             </div>
                         </div>
                     </div>
@@ -392,35 +300,40 @@
             currentCategory = cat;
             document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
-            filterMovies();
+            filterMedia();
         }
 
-        function filterMovies() {
+        function filterMedia() {
             const query = document.getElementById("searchInput").value.toLowerCase();
-            const filtered = movies.filter(m => {
-                const matchesCat = currentCategory === "الكل" || m.category === currentCategory;
-                const matchesSearch = m.title.toLowerCase().includes(query);
+            const filtered = mediaList.filter(item => {
+                const matchesCat = currentCategory === "الكل" || item.category === currentCategory;
+                const matchesSearch = item.title.toLowerCase().includes(query);
                 return matchesCat && matchesSearch;
             });
-            renderMovies(filtered);
+            renderMedia(filtered);
         }
 
-        function openMovie(index) {
-            const movie = movies[index];
-            document.getElementById("modalTitle").innerText = `${movie.title} (${movie.year})`;
-            document.getElementById("modalDesc").innerText = movie.desc;
-            document.getElementById("trailerFrame").src = movie.trailer;
-            document.getElementById("movieModal").style.display = "flex";
+        function playMedia(index) {
+            const item = mediaList[index];
+            const player = document.getElementById("mainVideoPlayer");
+            const source = document.getElementById("videoSource");
+            
+            source.src = item.videoUrl;
+            player.poster = item.poster;
+            player.load();
+            player.play();
+
+            document.getElementById("currentTitle").innerText = item.title;
+            document.getElementById("currentDesc").innerText = item.desc;
+
+            // التمرير بسلاسة إلى أعلى الشاشة عند الضغط لتبدأ المشاهدة فوراً
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function closeModal() {
-            document.getElementById("movieModal").style.display = "none";
-            document.getElementById("trailerFrame").src = "";
-        }
-
-        renderMovies(movies);
+        renderMedia(mediaList);
     </script>
 </body>
-    </html>
+</html>
+
             
     
