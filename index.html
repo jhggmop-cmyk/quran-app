@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سينما ومسلسلات | البث المباشر</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>منصة الدردشة الجماعية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-main: #0b0f19;
-            --bg-card: #151c2c;
+            --bg-sidebar: #111827;
+            --bg-card: #1f2937;
             --accent: #10b981;
             --accent-hover: #059669;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --gold: #d4af37;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: #374151;
         }
 
         * {
@@ -26,314 +27,355 @@
             font-family: 'Cairo', sans-serif;
             background-color: var(--bg-main);
             color: var(--text-main);
-            line-height: 1.6;
-        }
-
-        /* الشريط العلوي */
-        header {
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            background: rgba(11, 15, 25, 0.95);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid #1e293b;
+            overflow: hidden;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
+        /* نافذة تسجيل الدخول */
+        #loginOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 15, 25, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-box {
+            background: var(--bg-sidebar);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 20px;
             color: var(--accent);
         }
 
-        .logo span {
-            color: var(--gold);
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-family: inherit;
+            margin-bottom: 15px;
+            outline: none;
         }
 
-        .search-bar {
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .login-box button:hover {
+            background: var(--accent-hover);
+            color: #fff;
+        }
+
+        /* تخطيط التطبيق الأساسي */
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* الشريط الجانبي (الغرف) */
+        .sidebar {
             width: 280px;
-            max-width: 50%;
-            padding: 10px 16px;
+            background: var(--bg-sidebar);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .rooms-list {
+            list-style: none;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .room-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(55, 65, 81, 0.4);
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .room-item:hover, .room-item.active {
+            background: var(--bg-card);
+            border-right: 4px solid var(--accent);
+        }
+
+        .user-profile {
+            padding: 15px 20px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        /* منطقة المحادثة */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-main);
+        }
+
+        .chat-header {
+            padding: 15px 25px;
+            background: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border);
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .messages-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 65%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            position: relative;
+            word-break: break-word;
+        }
+
+        .message.incoming {
+            background: var(--bg-card);
+            align-self: flex-start;
+            border-bottom-right-radius: 2px;
+        }
+
+        .message.outgoing {
+            background: var(--accent);
+            color: #000;
+            align-self: flex-end;
+            border-bottom-left-radius: 2px;
+            font-weight: 600;
+        }
+
+        .msg-user {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .message.outgoing .msg-user {
+            color: #053b27;
+        }
+
+        /* صندوق الكتابة والإرسال */
+        .chat-input-area {
+            padding: 15px 25px;
+            background: var(--bg-sidebar);
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 12px 18px;
             border-radius: 25px;
-            border: 1px solid #334155;
+            border: 1px solid var(--border);
             background: var(--bg-card);
             color: var(--text-main);
             font-family: inherit;
             outline: none;
         }
 
-        .search-bar:focus {
+        .chat-input-area input:focus {
             border-color: var(--accent);
         }
 
-        /* قسم مشغل الفيديو الرئيسي (يعرض الفيلم/الحلقة كاملة) */
-        .player-section {
-            padding: 30px 5% 10px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .video-container {
-            width: 100%;
-            background: #000;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 2px solid #334155;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-        }
-
-        video {
-            width: 100%;
-            height: auto;
-            max-height: 500px;
-            display: block;
-            background: #000;
-        }
-
-        .now-playing-info {
-            padding: 15px 0;
-        }
-
-        .now-playing-info h2 {
-            font-size: 22px;
-            color: var(--text-main);
-            margin-bottom: 5px;
-        }
-
-        .now-playing-info p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* التصنيفات */
-        .categories {
-            display: flex;
-            gap: 10px;
-            padding: 20px 5% 10px;
-            overflow-x: auto;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .cat-btn {
-            background: var(--bg-card);
-            color: var(--text-muted);
-            border: 1px solid #1e293b;
-            padding: 8px 22px;
-            border-radius: 20px;
+        .chat-input-area button {
+            padding: 0 25px;
+            border-radius: 25px;
+            border: none;
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
             font-family: inherit;
-            font-size: 14px;
             cursor: pointer;
-            white-space: nowrap;
-            font-weight: 600;
             transition: 0.2s;
         }
 
-        .cat-btn.active, .cat-btn:hover {
-            background: var(--accent);
-            color: #000;
-            border-color: var(--accent);
-        }
-
-        /* شبكة عرض الأفلام والمسلسلات والأنمي */
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px 5% 50px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .media-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s, border-color 0.3s;
-            cursor: pointer;
-            border: 1px solid #1e293b;
-        }
-
-        .media-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
-
-        .media-poster {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .media-info {
-            padding: 12px;
-        }
-
-        .media-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .media-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .type-badge {
-            background: #1e293b;
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--gold);
-        }
-
-        .rating {
-            color: var(--gold);
-            font-weight: 700;
+        .chat-input-area button:hover {
+            background: var(--accent-hover);
+            color: #fff;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">STREAM<span>VIX</span></div>
-        <input type="text" id="searchInput" class="search-bar" placeholder="ابحث في الأفلام، المسلسلات، والأنمي..." onkeyup="filterMedia()">
-    </header>
-
-    <!-- مشغل الفيديو المباشر -->
-    <section class="player-section">
-        <div class="video-container">
-            <video id="mainVideoPlayer" controls poster="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1000&q=80">
-                <source id="videoSource" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                متصفحك لا يدعم مشغل الفيديو
-            </video>
+    <!-- نافذة إدخال الاسم البدئي -->
+    <div id="loginOverlay">
+        <div class="login-box">
+            <h2>انضم إلى الدردشة</h2>
+            <input type="text" id="usernameInput" placeholder="أدخل اسمك المستعار..." autocomplete="off">
+            <button onclick="login()">دخول للمنصة</button>
         </div>
-        <div class="now-playing-info">
-            <h2 id="currentTitle">اختر عملاً للمشاهدة المباشرة</h2>
-            <p id="currentDesc">اضغط على أي فيلم أو مسلسل أو حلقة أنمي من الأسفل لتبدأ المشاهدة فوراً.</p>
-        </div>
-    </section>
-
-    <!-- أزرار التصنيفات -->
-    <div class="categories">
-        <button class="cat-btn active" onclick="filterCategory('الكل', this)">الكل</button>
-        <button class="cat-btn" onclick="filterCategory('أفلام', this)">أفلام</button>
-        <button class="cat-btn" onclick="filterCategory('مسلسلات', this)">مسلسلات</button>
-        <button class="cat-btn" onclick="filterCategory('أنمي', this)">أنمي</button>
     </div>
 
-    <!-- شبكة المحتوى -->
-    <main class="media-grid" id="mediaGrid"></main>
+    <!-- واجهة المنصة -->
+    <div class="app-container" id="appContainer" style="display: none;">
+        <!-- الشريط الجانبي والغرف -->
+        <div class="sidebar">
+            <div class="sidebar-header">غرف النقاش</div>
+            <ul class="rooms-list" id="roomsList">
+                <li class="room-item active" onclick="switchRoom('عامة', this)">💬 الغرفة العامة</li>
+                <li class="room-item" onclick="switchRoom('تقنية وبرمجة', this)">💻 تقنية وبرمجة</li>
+                <li class="room-item" onclick="switchRoom('أفلام وأنمي', this)">🎬 أفلام وأنمي</li>
+            </ul>
+            <div class="user-profile">
+                <span id="displayUser">المستخدم</span>
+                <span style="color: var(--accent); cursor: pointer;" onclick="logout()">خروج</span>
+            </div>
+        </div>
+
+        <!-- ساحة المحادثة -->
+        <div class="chat-area">
+            <div class="chat-header" id="currentRoomTitle">الغرفة العامة</div>
+            <div class="messages-container" id="messagesContainer"></div>
+            <div class="chat-input-area">
+                <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا..." autocomplete="off" onkeypress="checkEnter(event)">
+                <button onclick="sendMessage()">إرسال</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // قائمة الأعمال (يمكنك تعديل روابط الـ video لتضع روابط سيرفراتك أو ملفات MP4 المباشرة)
-        const mediaList = [
-            {
-                title: "فيلم خيال علمي (تجريبي)",
-                category: "أفلام",
-                year: "2024",
-                rating: "8.8",
-                poster: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=600&q=80",
-                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                desc: "فيلم سينمائي مترجم بجودة عالية يعرض داخل المشغل المباشر."
-            },
-            {
-                title: "مسلسل دراما وتشويق - الحلقة 1",
-                category: "مسلسلات",
-                year: "2023",
-                rating: "9.2",
-                poster: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=600&q=80",
-                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                desc: "الحلقة الأولى من المسلسل الدرامي المثير."
-            },
-            {
-                title: "حلقة أنمي حماسية - حلقة 1",
-                category: "أنمي",
-                year: "2024",
-                rating: "9.5",
-                poster: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80",
-                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-                desc: "الموسم الجديد من الأنمي الأسطوري مترجم للعربية."
-            },
-            {
-                title: "فيلم أكشن ومغامرات",
-                category: "أفلام",
-                year: "2022",
-                rating: "8.1",
-                poster: "https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?auto=format&fit=crop&w=600&q=80",
-                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-                desc: "قصة ملحمية مليئة بالحماس والأكشن."
+        let currentUser = "";
+        let currentRoom = "عامة";
+        
+        // هيكل لتخزين الرسائل لكل غرفة محلياً
+        let chatData = {
+            "عامة": [
+                { user: "النظام", text: "أهلاً بك في الغرفة العامة!", time: "الآن" }
+            ],
+            "تقنية وبرمجة": [
+                { user: "النظام", text: "مرحباً بك في غرفة البرمجة وتطوير الويب.", time: "الآن" }
+            ],
+            "أفلام وأنمي": [
+                { user: "النظام", text: "شاركنا أفضل الأفلام والأنمي هنا.", time: "الآن" }
+            ]
+        };
+
+        function login() {
+            const name = document.getElementById("usernameInput").value.trim();
+            if(!name) {
+                alert("الرجاء إدخال الاسم أولاً!");
+                return;
             }
-        ];
-
-        let currentCategory = "الكل";
-
-        function renderMedia(list) {
-            const grid = document.getElementById("mediaGrid");
-            grid.innerHTML = "";
-            list.forEach((item) => {
-                const originalIndex = mediaList.indexOf(item);
-                grid.innerHTML += `
-                    <div class="media-card" onclick="playMedia(${originalIndex})">
-                        <img src="${item.poster}" alt="${item.title}" class="media-poster">
-                        <div class="media-info">
-                            <div class="media-title">${item.title}</div>
-                            <div class="media-meta">
-                                <span><span class="type-badge">${item.category}</span> ${item.year}</span>
-                                <span class="rating">★ ${item.rating}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
+            currentUser = name;
+            document.getElementById("displayUser").innerText = currentUser;
+            document.getElementById("loginOverlay").style.display = "none";
+            document.getElementById("appContainer").style.display = "flex";
+            renderMessages();
         }
 
-        function filterCategory(cat, btn) {
-            currentCategory = cat;
-            document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            filterMedia();
+        function logout() {
+            currentUser = "";
+            document.getElementById("loginOverlay").style.display = "flex";
+            document.getElementById("appContainer").style.display = "none";
+            document.getElementById("usernameInput").value = "";
         }
 
-        function filterMedia() {
-            const query = document.getElementById("searchInput").value.toLowerCase();
-            const filtered = mediaList.filter(item => {
-                const matchesCat = currentCategory === "الكل" || item.category === currentCategory;
-                const matchesSearch = item.title.toLowerCase().includes(query);
-                return matchesCat && matchesSearch;
-            });
-            renderMedia(filtered);
-        }
-
-        function playMedia(index) {
-            const item = mediaList[index];
-            const player = document.getElementById("mainVideoPlayer");
-            const source = document.getElementById("videoSource");
+        function switchRoom(roomName, element) {
+            currentRoom = roomName;
+            document.getElementById("currentRoomTitle").innerText = "غرفة: " + roomName;
             
-            source.src = item.videoUrl;
-            player.poster = item.poster;
-            player.load();
-            player.play();
-
-            document.getElementById("currentTitle").innerText = item.title;
-            document.getElementById("currentDesc").innerText = item.desc;
-
-            // التمرير بسلاسة إلى أعلى الشاشة عند الضغط لتبدأ المشاهدة فوراً
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.querySelectorAll(".room-item").forEach(item => item.classList.remove("active"));
+            element.classList.add("active");
+            
+            renderMessages();
         }
 
-        renderMedia(mediaList);
+        function sendMessage() {
+            const input = document.getElementById("messageInput");
+            const text = input.value.trim();
+            if(!text) return;
+
+            if(!chatData[currentRoom]) {
+                chatData[currentRoom] = [];
+            }
+
+            chatData[currentRoom].push({
+                user: currentUser,
+                text: text,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+
+            input.value = "";
+            renderMessages();
+        }
+
+        function checkEnter(e) {
+            if(e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function renderMessages() {
+            const container = document.getElementById("messagesContainer");
+            container.innerHTML = "";
+            
+            const messages = chatData[currentRoom] || [];
+            messages.forEach(msg => {
+                const isMe = msg.user === currentUser;
+                const div = document.createElement("div");
+                div.className = `message ${isMe ? 'outgoing' : 'incoming'}`;
+                
+                div.innerHTML = `
+                    <span class="msg-user">${msg.user}</span>
+                    <div>${msg.text}</div>
+                `;
+                container.appendChild(div);
+            });
+            
+            container.scrollTop = container.scrollHeight;
+        }
     </script>
 </body>
-</html>
+                                                     </html>
+                
 
             
     
