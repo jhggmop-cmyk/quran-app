@@ -4,27 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المصحف الإلكتروني</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f8f9fa;
-            --text-color: #333333;
+            --bg-color: #f4f6f8;
+            --text-color: #2c3e50;
             --card-bg: #ffffff;
-            --primary-color: #00897b;
-            --border-color: #e0e0e0;
-            --hover-color: rgba(0, 137, 123, 0.1);
+            --primary-color: #00796b;
+            --border-color: #e2e8f0;
+            --hover-bg: #f0fdf4;
         }
 
         body.dark-mode {
             --bg-color: #121212;
-            --text-color: #e0e0e0;
+            --text-color: #e2e8f0;
             --card-bg: #1e1e1e;
             --primary-color: #26a69a;
-            --border-color: #333333;
-            --hover-color: rgba(38, 166, 154, 0.15);
+            --border-color: #2d3748;
+            --hover-bg: #1a2e29;
         }
 
         body {
-            font-family: 'Amiri', Tahoma, sans-serif;
+            font-family: 'Tajawal', 'Amiri', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
@@ -33,33 +34,33 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
         }
 
-        /* تنسيق البنر الملكي الجديد */
+        /* تنسيق البنر الملكي الأخضر والذهبي */
         .site-banner {
             text-align: center;
-            margin: 10px 0 20px 0;
+            margin-bottom: 20px;
         }
 
         .site-banner img {
             width: 100%;
             max-width: 420px;
             height: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
             border: 2px solid #d4af37;
         }
 
-        .header-controls {
+        .controls {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
-        button {
+        button, select {
             padding: 8px 16px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
@@ -73,12 +74,12 @@
 
         button:hover {
             background-color: var(--primary-color);
-            color: #ffffff;
+            color: #fff;
         }
 
         .search-box {
             width: 100%;
-            padding: 12px;
+            padding: 12px 15px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-color);
@@ -92,13 +93,15 @@
         .surah-list {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            max-height: 380px;
+            overflow-y: auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             margin-bottom: 20px;
+            border: 1px solid var(--border-color);
         }
 
         .surah-item {
-            padding: 12px 15px;
+            padding: 12px 18px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
@@ -112,40 +115,29 @@
         }
 
         .surah-item:hover {
-            background-color: var(--hover-color);
-            border-radius: 8px;
+            background-color: var(--hover-bg);
         }
 
-        .active-surah-card {
+        .player-card {
             background: var(--card-bg);
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             text-align: center;
+            border: 1px solid var(--border-color);
         }
 
-        .surah-title-active {
-            font-size: 26px;
+        .surah-title {
+            font-family: 'Amiri', serif;
+            font-size: 28px;
             color: var(--primary-color);
             margin-bottom: 5px;
             font-weight: bold;
         }
 
-        .surah-info {
+        .surah-meta {
             font-size: 14px;
-            color: var(--text-color);
             opacity: 0.8;
-            margin-bottom: 15px;
-        }
-
-        select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: var(--card-bg);
-            color: var(--text-color);
-            font-family: inherit;
             margin-bottom: 15px;
         }
 
@@ -158,47 +150,38 @@
 <body>
 
     <div class="container">
-        <!-- بانر الصورة الفخمة -->
+        <!-- البنر الخاص بك (صورة المصحف الملكية) -->
         <div class="site-banner">
             <img src="banner.jpg" alt="القرآن الكريم">
         </div>
 
-        <!-- أزرار التحكم والوضع الليلي -->
-        <div class="header-controls">
+        <!-- أزرار التحكم -->
+        <div class="controls">
             <button onclick="toggleDarkMode()">الوضع الليلي</button>
-            <button onclick="changeFontSize(-1)">-A</button>
-            <button onclick="changeFontSize(1)">+A</button>
+            <button onclick="changeFontSize(1)">A+</button>
+            <button onclick="changeFontSize(-1)">A-</button>
         </div>
 
         <!-- شريط البحث -->
-        <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن سورة..." onkeyup="searchSurah()">
+        <input type="text" id="search" class="search-box" placeholder="ابحث عن سورة..." onkeyup="filterSurahs()">
 
-        <!-- قائمة السور -->
+        <!-- قائمة السور (تحتوي على جميع الـ 114 سورة) -->
         <div class="surah-list" id="surahList">
-            <div class="surah-item" onclick="selectSurah('الفاتحة', 'مكية (7)')">
-                <span>1. سُورَةُ أَلْفَاتِحَةِ</span>
-                <span>مكية (7)</span>
-            </div>
-            <div class="surah-item" onclick="selectSurah('البقرة', 'مدنية (286)')">
-                <span>2. سُورَةُ البَقَرَةِ</span>
-                <span>مدنية (286)</span>
-            </div>
-            <div class="surah-item" onclick="selectSurah('آل عمران', 'مدنية (200)')">
-                <span>3. سُورَةُ آلِ عِمْرَانَ</span>
-                <span>مدنية (200)</span>
-            </div>
+            <div style="text-align:center; padding: 20px;">جاري تحميل سور القرآن الكريم...</div>
         </div>
 
-        <!-- مشغل الصوت وعرض السورة النشطة -->
-        <div class="active-surah-card">
-            <div class="surah-title-active" id="activeTitle">سُورَةُ أَلْفَاتِحَةِ</div>
-            <div class="surah-info" id="activeInfo">مكية - عدد آياتها 7</div>
+        <!-- مشغل الصوت السحابي -->
+        <div class="player-card">
+            <div class="surah-title" id="activeTitle">سُورَةُ أَلْفَاتِحَةِ</div>
+            <div class="surah-meta" id="activeMeta">مكية • عدد الآيات: 7</div>
             
-            <select>
-                <option>مشاري راشد العفاسي</option>
+            <select id="reciterSelect" onchange="updateAudio()">
+                <option value="afs">مشاري راشد العفاسي</option>
+                <option value="sds">عبد الرحمن السديس</option>
+                <option value="husr">محمود خليل الحصري</option>
             </select>
 
-            <audio controls>
+            <audio id="audioPlayer" controls>
                 <source src="" type="audio/mpeg">
                 متصفحك لا يدعم مشغل الصوت
             </audio>
@@ -206,32 +189,81 @@
     </div>
 
     <script>
+        let allSurahs = [];
+        let currentSurahNumber = 1;
+
+        async function fetchSurahs() {
+            try {
+                let response = await fetch('https://api.alquran.cloud/v1/surah');
+                let data = await response.json();
+                if(data.code === 200) {
+                    allSurahs = data.data;
+                    displaySurahs(allSurahs);
+                    selectSurah(1, 'سُورَةُ أَلْفَاتِحَةِ', 'مكية', 7);
+                }
+            } catch (e) {
+                document.getElementById('surahList').innerHTML = '<div style="padding:20px; text-align:center; color:red;">فشل تحميل السور، تأكد من الاتصال بالإنترنت</div>';
+            }
+        }
+
+        function displaySurahs(surahs) {
+            let listContainer = document.getElementById('surahList');
+            listContainer.innerHTML = '';
+            surahs.forEach(s => {
+                let revelationType = s.revelationType === 'Meccan' ? 'مكية' : 'مدنية';
+                let item = document.createElement('div');
+                item.className = 'surah-item';
+                item.innerHTML = `<span><strong>${s.number}.</strong> ${s.name}</span> <span>${revelationType} (${s.numberOfAyahs})</span>`;
+                item.onclick = () => selectSurah(s.number, 'سُورَةُ ' + s.name.replace('سُورَةُ ', ''), revelationType, s.numberOfAyahs);
+                listContainer.appendChild(item);
+            });
+        }
+
+        function filterSurahs() {
+            let query = document.getElementById('search').value.toLowerCase();
+            let filtered = allSurahs.filter(s => s.name.toLowerCase().includes(query) || s.number.toString().includes(query));
+            displaySurahs(filtered);
+        }
+
+        function selectSurah(number, name, type, ayahs) {
+            currentSurahNumber = number;
+            document.getElementById('activeTitle').innerText = name;
+            document.getElementById('activeMeta').innerText = `${type} • عدد الآيات: ${ayahs}`;
+            updateAudio();
+        }
+
+        function updateAudio() {
+            let reciter = document.getElementById('reciterSelect').value;
+            let paddedNum = String(currentSurahNumber).padStart(3, '0');
+            let audioPlayer = document.getElementById('audioPlayer');
+            
+            let url = '';
+            if(reciter === 'afs') {
+                url = `https://server8.mp3quran.net/afs/${paddedNum}.mp3`;
+            } else if(reciter === 'sds') {
+                url = `https://server11.mp3quran.net/sds/${paddedNum}.mp3`;
+            } else if(reciter === 'husr') {
+                url = `https://server13.mp3quran.net/husr/${paddedNum}.mp3`;
+            }
+            audioPlayer.src = url;
+            audioPlayer.load();
+        }
+
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
         }
 
-        function changeFontSize(direction) {
-            // دالة التحكم بحجم الخط
+        let currentFontSize = 16;
+        function changeFontSize(delta) {
+            currentFontSize += delta;
+            if(currentFontSize < 12) currentFontSize = 12;
+            if(currentFontSize > 22) currentFontSize = 22;
+            document.body.style.fontSize = currentFontSize + 'px';
         }
 
-        function selectSurah(name, info) {
-            document.getElementById('activeTitle').innerText = 'سُورَةُ ' + name;
-            document.getElementById('activeInfo').innerText = info;
-        }
-
-        function searchSurah() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let items = document.getElementsByClassName('surah-item');
-            for (let i = 0; i < items.length; i++) {
-                let text = items[i].innerText;
-                if (text.toLowerCase().includes(input)) {
-                    items[i].style.display = "";
-                } else {
-                    items[i].style.display = "none";
-                }
-            }
-        }
+        fetchSurahs();
     </script>
 </body>
-                </html>
+</html>
+
                 
