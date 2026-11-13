@@ -3,429 +3,424 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المصحف الإلكتروني الشامل</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>سينما بلس | عالم الأفلام</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f4f7f6;
-            --text-color: #1e293b;
-            --card-bg: #ffffff;
-            --primary-color: #0f5132;
-            --gold-color: #d4af37;
-            --border-color: #e2e8f0;
-            --hover-bg: #ecfdf5;
+            --bg-main: #0b0f19;
+            --bg-card: #151c2c;
+            --accent: #e50914;
+            --accent-hover: #b20710;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --gold: #f59e0b;
         }
 
-        body.dark-mode {
-            --bg-color: #0f172a;
-            --text-color: #f1f5f9;
-            --card-bg: #1e293b;
-            --primary-color: #10b981;
-            --border-color: #334155;
-            --hover-bg: #064e3b;
-        }
-
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .container {
-            max-width: 750px;
-            margin: 0 auto;
-        }
-
-        /* بانر الموقع */
-        .site-banner {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .site-banner img {
-            width: 100%;
-            max-width: 450px;
-            height: auto;
-            border-radius: 16px;
-            border: 3px solid var(--gold-color);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-        }
-
-        /* شريط التنقل بين الأقسام */
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 10px 18px;
-            border: 1px solid var(--border-color);
-            background: var(--card-bg);
-            color: var(--text-color);
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-family: inherit;
-            transition: 0.2s;
-        }
-
-        .tab-btn.active, .tab-btn:hover {
-            background-color: var(--primary-color);
-            color: #ffffff;
-            border-color: var(--primary-color);
-        }
-
-        /* أدوات التحكم */
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        button, select {
-            padding: 8px 14px;
-            border: 1px solid var(--border-color);
-            background: var(--card-bg);
-            color: var(--text-color);
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid var(--border-color);
-            background: var(--card-bg);
-            color: var(--text-color);
-            border-radius: 12px;
-            margin-bottom: 15px;
-            font-size: 16px;
+        * {
             box-sizing: border-box;
-            outline: none;
-        }
-
-        .search-box:focus {
-            border-color: var(--primary-color);
-        }
-
-        /* البطاقات والقوائم */
-        .card {
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            border: 1px solid var(--border-color);
-            margin-bottom: 20px;
-        }
-
-        .surah-list {
-            max-height: 280px;
-            overflow-y: auto;
+            margin: 0;
             padding: 0;
         }
 
-        .surah-item {
-            padding: 14px 18px;
-            border-bottom: 1px solid var(--border-color);
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* الشريط العلوي */
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px 5%;
+            background: rgba(11, 15, 25, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--text-main);
+        }
+
+        .search-bar {
+            width: 300px;
+            max-width: 50%;
+            padding: 10px 16px;
+            border-radius: 25px;
+            border: 1px solid #334155;
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-bar:focus {
+            border-color: var(--accent);
+        }
+
+        /* الواجهة الرئيسية Hero */
+        .hero {
+            position: relative;
+            height: 420px;
+            background: linear-gradient(to top, var(--bg-main) 10%, rgba(11, 15, 25, 0.4) 100%),
+                        url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+            padding: 40px 5%;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-badge {
+            background: var(--accent);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        /* أزرار التصنيفات */
+        .categories {
+            display: flex;
+            gap: 10px;
+            padding: 25px 5% 10px;
+            overflow-x: auto;
+        }
+
+        .cat-btn {
+            background: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid #1e293b;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+
+        .cat-btn.active, .cat-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* شبكة الأفلام */
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 24px;
+            padding: 20px 5% 50px;
+        }
+
+        .movie-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 1px solid #1e293b;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .movie-info {
+            padding: 15px;
+        }
+
+        .movie-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .rating {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* نافذة التفاصيل (Modal) */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            max-width: 650px;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #334155;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 18px;
             cursor: pointer;
         }
 
-        .surah-item:hover {
-            background-color: var(--hover-bg);
-        }
-
-        /* منطقة قراءة الآيات الكاملة */
-        .ayahs-container {
-            font-family: 'Amiri', serif;
-            font-size: 24px;
-            line-height: 2.5;
-            text-align: justify;
-            padding: 20px;
-            background: var(--bg-color);
-            border-radius: 12px;
-            margin-top: 15px;
-            max-height: 500px;
-            overflow-y: auto;
-            border: 1px solid var(--border-color);
-        }
-
-        .ayah-number {
-            display: inline-block;
-            color: var(--gold-color);
-            font-weight: bold;
-            margin: 0 6px;
-            font-size: 20px;
-        }
-
-        .bismillah {
-            text-align: center;
-            font-family: 'Amiri', serif;
-            font-size: 26px;
-            color: var(--primary-color);
-            margin: 15px 0;
-            font-weight: bold;
-        }
-
-        /* المسبحة والأذكار */
-        .tasbeeh-counter {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .count-display {
-            font-size: 48px;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin: 15px 0;
-        }
-
-        .tasbeeh-btn {
-            background-color: var(--primary-color);
-            color: white;
-            font-size: 20px;
-            padding: 15px 40px;
-            border-radius: 50px;
-            border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .dhikr-item {
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
-            line-height: 1.8;
-            font-size: 18px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        audio {
+        .video-wrapper {
             width: 100%;
-            margin-top: 10px;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-body h2 {
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .modal-body p {
+            color: var(--text-muted);
+            font-size: 15px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- البنر (صورة المصحف الخضراء والذهبية) -->
-    <div class="site-banner">
-        <img src="banner.jpg" alt="القرآن الكريم">
-    </div>
+    <header>
+        <div class="logo">CINEMA<span>PLUS</span></div>
+        <input type="text" id="searchInput" class="search-bar" placeholder="ابحث عن فيلم..." onkeyup="filterMovies()">
+    </header>
 
-    <!-- أدوات التحكم بالمظهر والخط -->
-    <div class="controls">
-        <button onclick="toggleDarkMode()">🌙 الوضع الليلي</button>
-        <button onclick="changeFontSize(2)">A+ تكبير الخط</button>
-        <button onclick="changeFontSize(-2)">A- تصغير الخط</button>
-    </div>
-
-    <!-- التبويبات الرئيسية -->
-    <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('quranTab', this)">📖 القرآن الكريم</button>
-        <button class="tab-btn" onclick="switchTab('adhkarTab', this)">🤲 الأذكار والأدعية</button>
-        <button class="tab-btn" onclick="switchTab('tasbeehTab', this)">📿 المسبحة والاستغفار</button>
-    </div>
-
-    <!-- 1. قسم القرآن الكريم وقراءة الآيات -->
-    <div id="quranTab">
-        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ابحث باسم السورة أو رقمها..." onkeyup="filterSurahs()">
-
-        <div class="card surah-list" id="surahList">
-            <div style="text-align:center; padding: 20px;">جاري تحميل سور القرآن الكريم...</div>
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">الأكثر مشاهدة</span>
+            <h1>Interstellar (بين النجوم)</h1>
+            <p>في مستقبل تواجه فيه الأرض أزمة بيئية تهدد بقاء البشرية، ينطلق فريق من رواد الفضاء عبر ثقب دودي للبحث عن كوكب صالح للحياة.</p>
+            <button class="btn-primary" onclick="openMovie(0)">▶ مشاهدة الإعلان والتفاصيل</button>
         </div>
+    </section>
 
-        <!-- مشغل الصوت وقراءة الآيات -->
-        <div class="card">
-            <h2 id="activeTitle" style="text-align:center; color:var(--primary-color); font-family:'Amiri', serif; margin:0;">سُورَةُ أَلْفَاتِحَةِ</h2>
-            <p id="activeMeta" style="text-align:center; opacity:0.8; margin:5px 0 15px 0;">مكية • 7 آيات</p>
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('الكل', this)">الكل</button>
+        <button class="cat-btn" onclick="filterCategory('خيال علمي', this)">خيال علمي</button>
+        <button class="cat-btn" onclick="filterCategory('أكشن', this)">أكشن</button>
+        <button class="cat-btn" onclick="filterCategory('أنمي', this)">أنمي</button>
+        <button class="cat-btn" onclick="filterCategory('دراما', this)">دراما</button>
+    </div>
 
-            <select id="reciterSelect" onchange="updateAudio()" style="width:100%; margin-bottom:10px;">
-                <option value="afs">القارئ: مشاري راشد العفاسي</option>
-                <option value="sds">القارئ: عبد الرحمن السديس</option>
-                <option value="husr">القارئ: محمود خليل الحصري</option>
-                <option value="minsh">القارئ: محمد صديق المنشاوي</option>
-            </select>
+    <main class="movies-grid" id="moviesGrid"></main>
 
-            <audio id="audioPlayer" controls>
-                <source src="" type="audio/mpeg">
-            </audio>
-
-            <div class="bismillah" id="bismillahText">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-            
-            <!-- هنا يتم عرض جميع آيات السورة المختارة بالكامل -->
-            <div class="ayahs-container" id="ayahsContainer">
-                جاري تحميل آيات السورة...
+    <!-- نافذة عرض الفيلم -->
+    <div class="modal" id="movieModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal()">✕</button>
+            <div class="video-wrapper">
+                <iframe id="trailerFrame" src="" allowfullscreen></iframe>
+            </div>
+            <div class="modal-body">
+                <h2 id="modalTitle"></h2>
+                <p id="modalDesc"></p>
             </div>
         </div>
     </div>
 
-    <!-- 2. قسم الأذكار والأدعية -->
-    <div id="adhkarTab" class="card hidden">
-        <h3 style="color:var(--primary-color); text-align:center;">أذكار وأدعية مختارة</h3>
-        <div class="dhikr-item"><strong>أذكار الصباح:</strong> أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ، وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.</div>
-        <div class="dhikr-item"><strong>أذكار المساء:</strong> أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ، وَحْدَهُ لَا شَرِيكَ لَهُ.</div>
-        <div class="dhikr-item"><strong>سيد الاستغفار:</strong> اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.</div>
-        <div class="dhikr-item"><strong>دعاء الكرب:</strong> لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ.</div>
-    </div>
-
-    <!-- 3. قسم المسبحة والاستغفار -->
-    <div id="tasbeehTab" class="card hidden tasbeeh-counter">
-        <h3 style="color:var(--primary-color);">المسبحة الإلكترونية</h3>
-        <select id="dhikrSelect" onchange="resetCounter()" style="margin-bottom: 15px; font-size: 16px; width:100%;">
-            <option value="أستغفر الله العظيم وأتوب إليه">أستغفر الله العظيم وأتوب إليه</option>
-            <option value="سبحان الله وبحمده، سبحان الله العظيم">سبحان الله وبحمده، سبحان الله العظيم</option>
-            <option value="الحمد لله رب العالمين">الحمد لله رب العالمين</option>
-            <option value="لا إله إلا الله وحده لا شريك له">لا إله إلا الله وحده لا شريك له</option>
-            <option value="اللهم صل وسلم على نبينا محمد">اللهم صل وسلم على نبينا محمد</option>
-        </select>
-        <div class="count-display" id="counterDisplay">0</div>
-        <button class="tasbeeh-btn" onclick="incrementCounter()">سبّح / استغفر</button>
-        <br><br>
-        <button onclick="resetCounter()" style="background:#ef4444; color:white; border:none; padding:8px 16px; border-radius:8px;">تصفير العداد</button>
-    </div>
-</div>
-
-<script>
-    let allSurahs = [];
-    let currentSurah = 1;
-    let ayahFontSize = 24;
-    let tasbeehCount = 0;
-
-    // جلب قائمة السور الـ 114
-    async function initQuran() {
-        try {
-            const res = await fetch('https://api.alquran.cloud/v1/surah');
-            const data = await res.json();
-            if (data.code === 200) {
-                allSurahs = data.data;
-                renderSurahList(allSurahs);
-                loadSurah(1); // تحميل سورة الفاتحة افتراضياً
+    <script>
+        const movies = [
+            {
+                title: "Interstellar",
+                year: "2014",
+                rating: "8.7",
+                category: "خيال علمي",
+                poster: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=600&q=80",
+                trailer: "https://www.youtube.com/embed/zSWdZVtXT7E",
+                desc: "ملحمة خيال علمي عن السفر عبر الفضاء والزمن لإنقاذ مستقبل البشرية."
+            },
+            {
+                title: "Spirited Away",
+                year: "2001",
+                rating: "8.6",
+                category: "أنمي",
+                poster: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80",
+                trailer: "https://www.youtube.com/embed/ByXuk9QqQkk",
+                desc: "فتاة صغيرة تدخل عالماً سحرياً مليئاً بالأرواح وتبحث عن طريقة لإنقاذ والديها."
+            },
+            {
+                title: "The Dark Knight",
+                year: "2008",
+                rating: "9.0",
+                category: "أكشن",
+                poster: "https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?auto=format&fit=crop&w=600&q=80",
+                trailer: "https://www.youtube.com/embed/EXeTwQWrcwY",
+                desc: "يواجه باتمان التحدي الأكبر له في مدينة جوثام ضد العقل المدبر الفوضوي الجوكر."
+            },
+            {
+                title: "Inception",
+                year: "2010",
+                rating: "8.8",
+                category: "خيال علمي",
+                poster: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+                trailer: "https://www.youtube.com/embed/YoHD9XEInc0",
+                desc: "لص محترف يسرق الأسرار من خلال التسلل إلى اللاوعي أثناء الحلم يُكلف بمهمة زرع فكرة."
+            },
+            {
+                title: "The Pursuit of Happyness",
+                year: "2006",
+                rating: "8.0",
+                category: "دراما",
+                poster: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80",
+                trailer: "https://www.youtube.com/embed/DMOBlEcRuw8",
+                desc: "قصة كفاح حقيقية ملهمة لأب يكافح الفقر والتشرد لبناء مستقبل كريم لابنه."
+            },
+            {
+                title: "Dune: Part Two",
+                year: "2024",
+                rating: "8.5",
+                category: "أكشن",
+                poster: "https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&w=600&q=80",
+                trailer: "https://www.youtube.com/embed/Way9Dexny3w",
+                desc: "يتحد بول أتريديس مع سكان الصحراء في رحلة انتقام واستعادة السيطرة على كوكب أراكيس."
             }
-        } catch (err) {
-            document.getElementById('surahList').innerHTML = '<div style="padding:20px; text-align:center; color:red;">تعذر الاتصال بالخادم، تأكد من الإنترنت.</div>';
-        }
-    }
+        ];
 
-    // عرض قائمة السور
-    function renderSurahList(surahs) {
-        const container = document.getElementById('surahList');
-        container.innerHTML = '';
-        surahs.forEach(s => {
-            const type = s.revelationType === 'Meccan' ? 'مكية' : 'مدنية';
-            const div = document.createElement('div');
-            div.className = 'surah-item';
-            div.innerHTML = `<span><strong>${s.number}.</strong> ${s.name}</span> <span>${type} (${s.numberOfAyahs})</span>`;
-            div.onclick = () => loadSurah(s.number);
-            container.appendChild(div);
-        });
-    }
+        let currentCategory = "الكل";
 
-    // البحث في السور
-    function filterSurahs() {
-        const q = document.getElementById('searchInput').value.trim();
-        const filtered = allSurahs.filter(s => s.name.includes(q) || s.number.toString() === q);
-        renderSurahList(filtered);
-    }
-
-    // جلب وعرض آيات السورة بالكامل مع الصوت
-    async function loadSurah(number) {
-        currentSurah = number;
-        const surahInfo = allSurahs.find(s => s.number === number);
-        if (surahInfo) {
-            const type = surahInfo.revelationType === 'Meccan' ? 'مكية' : 'مدنية';
-            document.getElementById('activeTitle').innerText = surahInfo.name;
-            document.getElementById('activeMeta').innerText = `${type} • عدد الآيات: ${surahInfo.numberOfAyahs}`;
+        function renderMovies(list) {
+            const grid = document.getElementById("moviesGrid");
+            grid.innerHTML = "";
+            list.forEach((movie) => {
+                const originalIndex = movies.indexOf(movie);
+                grid.innerHTML += `
+                    <div class="movie-card" onclick="openMovie(${originalIndex})">
+                        <img src="${movie.poster}" alt="${movie.title}" class="movie-poster">
+                        <div class="movie-info">
+                            <div class="movie-title">${movie.title}</div>
+                            <div class="movie-meta">
+                                <span>${movie.year} • ${movie.category}</span>
+                                <span class="rating">★ ${movie.rating}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
-        // إخفاء البسملة في سورة التوبة (9) والفاتحة (1)
-        document.getElementById('bismillahText').style.display = (number === 9 || number === 1) ? 'none' : 'block';
-
-        updateAudio();
-
-        const ayahsBox = document.getElementById('ayahsContainer');
-        ayahsBox.innerHTML = '<div style="text-align:center; padding:20px;">جاري تحميل الآيات...</div>';
-
-        try {
-            const res = await fetch(`https://api.alquran.cloud/v1/surah/${number}`);
-            const data = await res.json();
-            if (data.code === 200) {
-                let html = '';
-                data.data.ayahs.forEach(ayah => {
-                    html += `${ayah.text} <span class="ayah-number">﴿${ayah.numberInSurah}﴾</span> `;
-                });
-                ayahsBox.innerHTML = html;
-            }
-        } catch (err) {
-            ayahsBox.innerHTML = '<div style="color:red; text-align:center;">حدث خطأ أثناء تحميل الآيات.</div>';
+        function filterCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            filterMovies();
         }
-    }
 
-    // تحديث رابط الصوت حسب القارئ والسورة
-    function updateAudio() {
-        const reciter = document.getElementById('reciterSelect').value;
-        const padded = String(currentSurah).padStart(3, '0');
-        const player = document.getElementById('audioPlayer');
-        
-        const servers = {
-            'afs': `https://server8.mp3quran.net/afs/${padded}.mp3`,
-            'sds': `https://server11.mp3quran.net/sds/${padded}.mp3`,
-            'husr': `https://server13.mp3quran.net/husr/${padded}.mp3`,
-            'minsh': `https://server10.mp3quran.net/minsh/${padded}.mp3`
-        };
-        player.src = servers[reciter];
-    }
+        function filterMovies() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const filtered = movies.filter(m => {
+                const matchesCat = currentCategory === "الكل" || m.category === currentCategory;
+                const matchesSearch = m.title.toLowerCase().includes(query);
+                return matchesCat && matchesSearch;
+            });
+            renderMovies(filtered);
+        }
 
-    // التنقل بين الأقسام
-    function switchTab(tabId, btn) {
-        ['quranTab', 'adhkarTab', 'tasbeehTab'].forEach(id => {
-            document.getElementById(id).classList.add('hidden');
-        });
-        document.getElementById(tabId).classList.remove('hidden');
+        function openMovie(index) {
+            const movie = movies[index];
+            document.getElementById("modalTitle").innerText = `${movie.title} (${movie.year})`;
+            document.getElementById("modalDesc").innerText = movie.desc;
+            document.getElementById("trailerFrame").src = movie.trailer;
+            document.getElementById("movieModal").style.display = "flex";
+        }
 
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    }
+        function closeModal() {
+            document.getElementById("movieModal").style.display = "none";
+            document.getElementById("trailerFrame").src = "";
+        }
 
-    // الوضع الليلي
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-    }
-
-    // تكبير وتصغير خط الآيات
-    function changeFontSize(delta) {
-        ayahFontSize += delta;
-        if (ayahFontSize < 18) ayahFontSize = 18;
-        if (ayahFontSize > 36) ayahFontSize = 36;
-        document.getElementById('ayahsContainer').style.fontSize = ayahFontSize + 'px';
-    }
-
-    // عداد المسبحة
-    function incrementCounter() {
-        tasbeehCount++;
-        document.getElementById('counterDisplay').innerText = tasbeehCount;
-    }
-
-    function resetCounter() {
-        tasbeehCount = 0;
-        document.getElementById('counterDisplay').innerText = 0;
-    }
-
-    initQuran();
-</script>
-
+        renderMovies(movies);
+    </script>
 </body>
-            </html>
-        
+    </html>
+            
+    
